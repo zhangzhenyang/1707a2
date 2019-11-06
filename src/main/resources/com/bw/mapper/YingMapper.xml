@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bw.mapper.Yingmapper">
+<select id="queryYing" parameterType="map" resultType="com.bw.entity.Ying">
+select * from ying 
+order by yname
+<where>
+<if test="yname!=null and yname !=''">
+	and yname like '%${yname}%'
+</if>
+<if test="dy !=null and dy !=''">
+	and dy like '%${dy}%'
+</if>
+<if test="years!=null">
+	and years=#{years}
+</if>
+<if test="startdate!=null">
+and startdate >=#{startdate}
+</if>
+<if test="enddate!=null">
+ and startdate &lt;= #{enddate}
+</if>
+<if test="minprice!=null">
+and price >=#{minprice}
+</if>
+<if test="maxprice!=null">
+ and price &lt;=#{maxprice}
+</if>
+<if test="mintime!=null">
+and time >=#{mintime}
+</if>
+<if test="maxtime">
+ and time &lt;=#{maxtime}
+</if>
+
+
+</where> 
+</select>
+<select id="queryYingId" parameterType="int" resultType="com.bw.entity.Ying">
+select lable  from ying where yid=#{yid}
+</select>
+<update id="updateYing" parameterType="map" >
+
+<if test="lable==1">
+update ying set 
+lable==0
+where yid=#{yid}
+</if>
+<if test="lable==0">
+update ying set 
+lable==1
+where yid=#{yid}
+</if>
+<if test=""></if>
+
+</update>
+<delete id="delAll" parameterType="string">
+delete from ying where yid=#{id}
+</delete>
+</mapper>
